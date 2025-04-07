@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
   <title>Pregúntale a tu flaca</title>
   <style>
     body {
@@ -11,11 +10,24 @@
       background-color: #f9f9f9;
       text-align: center;
       padding: 2rem;
+      overflow: hidden;
+      position: relative;
     }
 
     .container {
       max-width: 600px;
       margin: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .image-container {
+      display: inline-block;
+      background-color: #ffc0cb;
+      padding: 20px;
+      border-radius: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: relative;
     }
 
     .image-container img {
@@ -28,15 +40,66 @@
       margin-top: 1rem;
       color: #333;
     }
+
+    /* Corazones flotando */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff69b4;
+      transform: rotate(45deg);
+      animation: floatUp 6s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff69b4;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Corazones generados con JS -->
+  <script>
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 4 + Math.random() * 4 + 's';
+      heart.style.width = heart.style.height = 15 + Math.random() * 15 + 'px';
+      document.body.appendChild(heart);
+    }
+  </script>
+
   <div class="container">
-    <!-- Imagen reemplazando el GIF -->
     <div class="image-container">
       <img src="jenyrivera-removebg-preview.png" alt="Imagen de Jenny Rivera" />
     </div>
-
     <h1>Heheheh, ¡Lo sabía!</h1>
   </div>
 </body>
